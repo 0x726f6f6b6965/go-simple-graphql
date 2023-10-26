@@ -1,1 +1,5 @@
 .env
+bazel-bin
+bazel-go-simple-graphql
+bazel-out
+bazel-testlogs

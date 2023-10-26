@@ -1,0 +1,21 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "service",
+    srcs = [
+        "auth.go",
+        "blog.go",
+    ],
+    importpath = "github.com/0x726f6f6b6965/go-simple-graphql/graph/service",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//database",
+        "//graph/model",
+        "//utils",
+        "@org_golang_x_crypto//bcrypt:go_default_library",
+        "@org_mongodb_go_mongo_driver//bson:go_default_library",
+        "@org_mongodb_go_mongo_driver//bson/primitive:go_default_library",
+        "@org_mongodb_go_mongo_driver//mongo:go_default_library",
+        "@org_mongodb_go_mongo_driver//mongo/options:go_default_library",
+    ],
+)

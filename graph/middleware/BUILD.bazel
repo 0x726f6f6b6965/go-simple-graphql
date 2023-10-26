@@ -1,0 +1,13 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "middleware",
+    srcs = ["middleware.go"],
+    importpath = "github.com/0x726f6f6b6965/go-simple-graphql/graph/middleware",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//graph/model",
+        "//graph/service",
+        "//utils",
+    ],
+)

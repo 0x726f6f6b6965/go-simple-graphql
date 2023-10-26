@@ -1,0 +1,22 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "graph",
+    srcs = [
+        "generated.go",
+        "resolver.go",
+        "schema.resolvers.go",
+    ],
+    embedsrcs = ["schema.graphqls"],
+    importpath = "github.com/0x726f6f6b6965/go-simple-graphql/graph",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//graph/middleware",
+        "//graph/model",
+        "//graph/service",
+        "@com_github_99designs_gqlgen//graphql:go_default_library",
+        "@com_github_99designs_gqlgen//graphql/introspection:go_default_library",
+        "@com_github_vektah_gqlparser_v2//:go_default_library",
+        "@com_github_vektah_gqlparser_v2//ast:go_default_library",
+    ],
+)

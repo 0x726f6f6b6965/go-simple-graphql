@@ -1,0 +1,16 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "utils",
+    srcs = [
+        "auth.go",
+        "const.go",
+        "utils.go",
+    ],
+    importpath = "github.com/0x726f6f6b6965/go-simple-graphql/utils",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@com_github_golang_jwt_jwt_v4//:go_default_library",
+        "@com_github_joho_godotenv//:go_default_library",
+    ],
+)
