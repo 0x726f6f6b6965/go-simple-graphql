@@ -1,0 +1,77 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+scalar Time
+
+# Blog represents blog entity
+type Blog {
+  id: ID!
+  title: String!
+  content: String!
+  author: User
+  createdAt: Time!
+  updatedAt: Time
+}
+
+# User represents user data
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  password: String!
+  createdAt: Time!
+  updatedAt: Time
+}
+
+type Query {
+  # Query to get all blog
+  blogs: [Blog!]!
+  # Query to get blog data by ID
+  blog(id: ID!): Blog!
+}
+
+# NewUser represents data input for creating a new user
+input NewUser {
+  username: String!
+  email: String!
+  password: String!
+}
+
+# LoginInput represents data input for login
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+# Input data for creating a new blog
+input NewBlog {
+  title: String!
+  content: String!
+}
+
+# Input data for editing a blog
+input EditBlog {
+  blogId: ID!
+  title: String!
+  content: String!
+}
+
+# Input data for deleting a blog
+input DeleteBlog {
+  blogId: ID!
+}
+
+# Mutation queries for data manipulation
+type Mutation {
+  # register to create a new user
+  register(input: NewUser!): String!
+  # login to authenticate the user
+  login(input: LoginInput!): String!
+  # create a new blog
+  newBlog(input: NewBlog!): Blog!
+  # edit a blog
+  editBlog(input: EditBlog!): Blog!
+  # delete a blog
+  deleteBlog(input: DeleteBlog!): Boolean!
+}
