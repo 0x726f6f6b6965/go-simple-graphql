@@ -21,3 +21,19 @@ gen-mod:
 .PHONY: run
 run:
 	@go run server.go
+
+## clean
+.PHONY: clean
+clean:
+	@bazel clean
+
+## build
+.PHONY: build
+build:
+	@bazel run //:gazelle-update-repos 
+	@bazel run //:gazelle
+
+## test
+.PHONY: test
+test:
+	@bazel test --test_output=summary --test_timeout=2 -t- //...

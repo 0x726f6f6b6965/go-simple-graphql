@@ -4,6 +4,16 @@ load("@bazel_gazelle//:def.bzl", "gazelle")
 # gazelle:prefix github.com/0x726f6f6b6965/go-simple-graphql
 gazelle(name = "gazelle")
 
+gazelle(
+    name = "gazelle-update-repos",
+    args = [
+        "-from_file=go.mod",
+        "-to_macro=deps.bzl%go_dependencies",
+        "-prune",
+    ],
+    command = "update-repos",
+)
+
 go_library(
     name = "go-simple-graphql_lib",
     srcs = ["server.go"],
@@ -14,9 +24,9 @@ go_library(
         "//graph",
         "//graph/middleware",
         "//utils",
-        "@com_github_99designs_gqlgen//graphql/handler:go_default_library",
-        "@com_github_99designs_gqlgen//graphql/playground:go_default_library",
-        "@com_github_go_chi_chi_v5//:go_default_library",
+        "@com_github_99designs_gqlgen//graphql/handler",
+        "@com_github_99designs_gqlgen//graphql/playground",
+        "@com_github_go_chi_chi_v5//:chi",
     ],
 )
 
@@ -30,11 +40,12 @@ go_test(
     name = "go-simple-graphql_test",
     srcs = ["server_test.go"],
     embed = [":go-simple-graphql_lib"],
+    data = [".env"],
     deps = [
         "//database",
         "//graph/model",
         "//mock",
         "//utils",
-        "@com_github_steinfletcher_apitest//:go_default_library",
+        "@com_github_steinfletcher_apitest//:apitest",
     ],
 )

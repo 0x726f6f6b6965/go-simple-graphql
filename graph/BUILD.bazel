@@ -14,9 +14,9 @@ go_library(
         "//graph/middleware",
         "//graph/model",
         "//graph/service",
-        "@com_github_99designs_gqlgen//graphql:go_default_library",
-        "@com_github_99designs_gqlgen//graphql/introspection:go_default_library",
-        "@com_github_vektah_gqlparser_v2//:go_default_library",
-        "@com_github_vektah_gqlparser_v2//ast:go_default_library",
+        "@com_github_99designs_gqlgen//graphql",
+        "@com_github_99designs_gqlgen//graphql/introspection",
+        "@com_github_vektah_gqlparser_v2//:gqlparser",
+        "@com_github_vektah_gqlparser_v2//ast",
     ],
 )
