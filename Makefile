@@ -20,7 +20,8 @@ gen-mod:
 ## run: run the graphQL server
 .PHONY: run
 run:
-	@go run server.go
+	@bazel run //cmd
+	# @bazel run $(shell sudo sh "$(PWD)"/env.sh 1) //cmd
 
 ## clean
 .PHONY: clean
@@ -36,4 +37,10 @@ build:
 ## test
 .PHONY: test
 test:
-	@bazel test --test_output=summary --test_timeout=2 -t- //...
+	@bazel test --test_output=summary --test_timeout=2 -t-  //...
+	# @bazel test $(shell sudo sh "$(PWD)"/env.sh 2) --test_output=summary --test_timeout=2 -t-  //...
+
+## setup
+.PHONY:
+setup:
+	@docker run --name mongo4 -d -p 27017:27017 --rm mongo

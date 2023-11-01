@@ -2,6 +2,7 @@ package utils
 
 import (
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -52,10 +53,10 @@ func ExtractTokenMetadata(r *http.Request) (*TokenMetadata, error) {
 // GenerateNewAccessToken generates a new JWT token
 func GenerateNewAccessToken(userId string) (string, error) {
 	// get the JWT secret key from .env file
-	secret := GetValue("JWT_SECRET_KEY")
+	secret := os.Getenv("JWT_SECRET_KEY")
 
 	// get the JWT secret key expiration in minutes from .env file
-	minutesCount, _ := strconv.Atoi(GetValue("JWT_SECRET_KEY_EXPIRE_MINUTES_COUNT"))
+	minutesCount, _ := strconv.Atoi(os.Getenv("JWT_SECRET_KEY_EXPIRE_MINUTES_COUNT"))
 
 	// create a JWT claim
 	claims := jwt.MapClaims{}
@@ -142,5 +143,5 @@ func extractToken(r *http.Request) string {
 
 // jwtKeyFunc return JWT secret key
 func jwtKeyFunc(token *jwt.Token) (interface{}, error) {
-	return []byte(GetValue("JWT_SECRET_KEY")), nil
+	return []byte(os.Getenv("JWT_SECRET_KEY")), nil
 }

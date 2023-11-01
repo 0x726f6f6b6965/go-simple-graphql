@@ -2,9 +2,8 @@ package database
 
 import (
 	"context"
+	"os"
 	"time"
-
-	"github.com/0x726f6f6b6965/go-simple-graphql/utils"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -26,7 +25,7 @@ func Connect(dbName string) error {
 	defer cancel()
 
 	// create a new MongoDB client
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI(utils.GetValue("MONGO_URI")))
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(os.Getenv("MONGO_URI")))
 
 	// if connection fails, return an error
 	if err != nil {

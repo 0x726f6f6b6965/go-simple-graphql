@@ -11,6 +11,7 @@ import (
 	"github.com/0x726f6f6b6965/go-simple-graphql/graph/model"
 	"github.com/0x726f6f6b6965/go-simple-graphql/mock"
 	"github.com/0x726f6f6b6965/go-simple-graphql/utils"
+	"github.com/joho/godotenv"
 
 	"github.com/steinfletcher/apitest"
 )
@@ -23,7 +24,15 @@ func TestMain(m *testing.M) {
 }
 
 func setup() {
-	_ = database.Connect(utils.GetValue("TEST_DATABASE_NAME"))
+	var err error = godotenv.Load("./../.env")
+	if err != nil {
+		fmt.Println("Error while loading .env file")
+	}
+	err = database.Connect(os.Getenv("TEST_DATABASE_NAME"))
+	if err != nil {
+		fmt.Printf("Cannot connect to the database: %v, %s\n", err, os.Getenv("TEST_DATABASE_NAME"))
+		return
+	}
 	fmt.Printf("\033[1;33m%s\033[0m", "> Setup completed\n")
 }
 

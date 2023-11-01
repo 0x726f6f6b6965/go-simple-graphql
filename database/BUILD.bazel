@@ -6,7 +6,6 @@ go_library(
     importpath = "github.com/0x726f6f6b6965/go-simple-graphql/database",
     visibility = ["//visibility:public"],
     deps = [
-        "//utils",
         "@org_mongodb_go_mongo_driver//mongo",
         "@org_mongodb_go_mongo_driver//mongo/options",
     ],

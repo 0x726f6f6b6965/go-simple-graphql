@@ -8,7 +8,7 @@ import (
 	"github.com/0x726f6f6b6965/go-simple-graphql/database"
 	"github.com/0x726f6f6b6965/go-simple-graphql/graph"
 	"github.com/0x726f6f6b6965/go-simple-graphql/graph/middleware"
-	"github.com/0x726f6f6b6965/go-simple-graphql/utils"
+	"github.com/joho/godotenv"
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
@@ -18,6 +18,7 @@ import (
 const defaultPort = "8080"
 
 func main() {
+	godotenv.Load()
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = defaultPort
@@ -26,8 +27,11 @@ func main() {
 	var handler *chi.Mux = NewGraphQLHandler()
 
 	// connect to the database
-	err := database.Connect(utils.GetValue("DATABASE_NAME"))
+	log.Println(os.Getenv("DATABASE_NAME"))
+	log.Println(os.Getenv("MONGO_URI"))
+	err := database.Connect(os.Getenv("DATABASE_NAME"))
 	if err != nil {
+
 		log.Fatalf("Cannot connect to the database: %v\n", err)
 	}
 

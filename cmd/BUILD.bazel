@@ -1,0 +1,39 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "cmd_lib",
+    srcs = ["server.go"],
+    importpath = "github.com/0x726f6f6b6965/go-simple-graphql/cmd",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//database",
+        "//graph",
+        "//graph/middleware",
+        "@com_github_99designs_gqlgen//graphql/handler",
+        "@com_github_99designs_gqlgen//graphql/playground",
+        "@com_github_go_chi_chi_v5//:chi",
+        "@com_github_joho_godotenv//:godotenv",
+    ],
+)
+
+go_binary(
+    name = "cmd",
+    embed = [":cmd_lib"],
+    visibility = ["//visibility:public"],
+    data = ["//:data"],
+)
+
+go_test(
+    name = "cmd_test",
+    srcs = ["server_test.go"],
+    data = ["//:data"],
+    embed = [":cmd_lib"],
+    deps = [
+        "//database",
+        "//graph/model",
+        "//mock",
+        "//utils",
+        "@com_github_joho_godotenv//:godotenv",
+        "@com_github_steinfletcher_apitest//:apitest",
+    ],
+)
